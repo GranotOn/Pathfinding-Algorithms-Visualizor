@@ -7,6 +7,7 @@
   function handleMouse(b) {
     mouse.update((n) => (n = b));
   }
+
   var board = [];
   beforeUpdate(() => {
     const rows = 50;
@@ -14,13 +15,33 @@
     board = new Array(rows).fill(0).map(() => new Array(columns).fill(0));
   });
 
-  function clearBoard() {
+  function softClearBoard() {
+    board.forEach((b, i) => {
+      b.forEach((c, j) => {
+        if (c !== 0 && c != 1 && c !== 3 && c != 4) {}
+          board[i][j] = 0;
+      });
+    });
+  }
+  function clearBoard() { //Hard clears all cells to 0
     board.forEach((b, i) => {
       b.forEach((c, j) => {
         if (c != 0)
           board[i][j] = 0;
       });
     })
+  }
+
+  function startSearch() { //Prepare app for search
+    softClearBoard(); //Clear board from previous search
+    
+    // Check if $start and $end are set
+
+    // Initialize a flag indicating the search started
+
+    // Call generic search on board with $algo
+
+    // Denounce flag at finish
   }
 
   /**
@@ -51,7 +72,7 @@
 <main
   on:mousedown={() => handleMouse(true)}
   on:mouseup={() => handleMouse(false)}>
-  <Toolbar {clearBoard} />
+  <Toolbar {clearBoard} {startSearch} />
   <div>
     <Board {board} />
   </div>
