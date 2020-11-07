@@ -1,4 +1,5 @@
 <script>
+  export let clearBoard;
   import { state } from "../stores.js";
   function formHandler(e) {
     state.update(n => n = parseInt(e.target.value));
@@ -90,5 +91,5 @@
     <label for="c"><span>Barriers</span></label>
   </form>
   <button class="primary">Activate</button>
-  <button class="secondary">Clear</button>
+  <button class="secondary" on:click={clearBoard}>Clear</button>
 </div>

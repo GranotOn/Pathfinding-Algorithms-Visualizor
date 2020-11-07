@@ -5,14 +5,23 @@
   import { mouse } from "./stores.js";
 
   function handleMouse(b) {
-    mouse.update((n) => n = b);
+    mouse.update((n) => (n = b));
   }
   var board = [];
   beforeUpdate(() => {
     const rows = 50;
-	const columns = 50;
-	board = new Array(rows).fill(0).map(() => new Array(columns).fill(0));
+    const columns = 50;
+    board = new Array(rows).fill(0).map(() => new Array(columns).fill(0));
   });
+
+  function clearBoard() {
+    board.forEach((b, i) => {
+      b.forEach((c, j) => {
+        if (c != 0)
+          board[i][j] = 0;
+      });
+    })
+  }
 
   /**
    * State indexes:
@@ -33,14 +42,16 @@
     margin: auto;
   }
 
-	div {
-		min-width: 50em;
-		min-height: 50em;
-	}
+  div {
+    min-width: 50em;
+    min-height: 50em;
+  }
 </style>
 
-<main on:mousedown={() => handleMouse(true)} on:mouseup={() => handleMouse(false)}>
-  <Toolbar />
+<main
+  on:mousedown={() => handleMouse(true)}
+  on:mouseup={() => handleMouse(false)}>
+  <Toolbar {clearBoard} />
   <div>
     <Board {board} />
   </div>

@@ -1,5 +1,8 @@
 <script>
-  export let cell = 0;
+  export let cell = 0,
+    changeCell,
+    i,
+    j;
   let cellDiv;
 
   import { start, end, state, mouse } from "../stores.js";
@@ -21,6 +24,10 @@
     if ($end !== cellDiv && cell === 1) {
       //Check if I'm still starting-point
       cell = $start === cellDiv ? 1 : 0;
+      cellDiv.style.backgroundColor = cellToClass();
+    }
+
+    if (cell === 0) {
       cellDiv.style.backgroundColor = cellToClass();
     }
   });
@@ -47,11 +54,11 @@
   }
 
   function handleMouse() {
-    if ($mouse && _state === 4)
-      clickHandler();
+    if ($mouse && _state === 4) clickHandler();
   }
 
   function cellToClass() {
+    changeCell(i, j, cell);
     switch (cell) {
       case 0:
         return "white";
