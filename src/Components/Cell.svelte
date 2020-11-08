@@ -90,6 +90,7 @@
 
 <div
   class="cell"
+  id="{i} {j}"
   bind:this={cellDiv}
   on:mousemove={handleMouse}
   on:click={clickHandler} />

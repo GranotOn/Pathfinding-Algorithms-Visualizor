@@ -2,27 +2,34 @@
   import Board from "./Components/Board.svelte";
   import Toolbar from "./Components/Toolbar.svelte";
   import { beforeUpdate } from "svelte";
-  import { mouse } from "./stores.js";
+  import { search } from "./search.js";
+  import { get } from "svelte/store";
+  import { mouse, start, end } from "./stores.js";
+  import { LIMIT } from "./utils/consts.js";
+
+  var board = [];
+  var searching = false;
 
   function handleMouse(b) {
     mouse.update((n) => (n = b));
   }
 
-  var board = [];
   beforeUpdate(() => {
-    const rows = 50;
-    const columns = 50;
+    const rows = LIMIT;
+    const columns = LIMIT;
     board = new Array(rows).fill(0).map(() => new Array(columns).fill(0));
   });
 
   function softClearBoard() {
     board.forEach((b, i) => {
       b.forEach((c, j) => {
-        if (c !== 0 && c != 1 && c !== 3 && c != 4) {}
+        if (c !== 0 && c != 1 && c !== 3 && c != 4) {
           board[i][j] = 0;
+        }
       });
     });
   }
+
   function clearBoard() { //Hard clears all cells to 0
     board.forEach((b, i) => {
       b.forEach((c, j) => {
@@ -33,15 +40,18 @@
   }
 
   function startSearch() { //Prepare app for search
-    softClearBoard(); //Clear board from previous search
     
-    // Check if $start and $end are set
+    if (!get(start) || !get(end))
+    return; // Check if $start and $end are set
+    
+    softClearBoard(); //Clear board from previous search
+    searching = true; // Initialize a flag indicating the search started
 
-    // Initialize a flag indicating the search started
+    search(board, get(start), get(end), () => {
+      
+      searching = false; // Denounce flag at finish
+    });// Call generic search on board with $algo
 
-    // Call generic search on board with $algo
-
-    // Denounce flag at finish
   }
 
   /**
