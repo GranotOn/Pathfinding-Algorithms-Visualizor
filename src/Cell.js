@@ -4,6 +4,7 @@ export default class Cell {
     constructor (i, j) {
         this.i = i;
         this.j = j;
+        this.parent = null;
     }
 
     neighbors() {
@@ -20,6 +21,10 @@ export default class Cell {
     }
 
     coords() {
-        return [this.i, this,j];
+        return [this.i, this.j];
+    }
+
+    parent() {
+        return this.parent;
     }
 }

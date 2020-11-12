@@ -7,7 +7,7 @@
   import { mouse, start, end } from "./stores.js";
   import { LIMIT } from "./utils/consts.js";
 
-  var board = [];
+  let board = [];
   var searching = false;
 
   function handleMouse(b) {
@@ -48,7 +48,8 @@
     searching = true; // Initialize a flag indicating the search started
 
     search(board, get(start), get(end), () => {
-      
+      board = board;
+      console.log(board);
       searching = false; // Denounce flag at finish
     });// Call generic search on board with $algo
 

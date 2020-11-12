@@ -1,6 +1,5 @@
 <script>
   export let cell = 0,
-    changeCell,
     i,
     j;
   let cellDiv;
@@ -27,7 +26,12 @@
       cellDiv.style.backgroundColor = cellToClass();
     }
 
-    if (cell === 0) {
+    if (cell === 0 || cell === 5 || cell === 2) {
+      cellDiv.style.backgroundColor = cellToClass();
+    }
+
+    if (cell === 5 || cell === 2) {
+      console.log("x");
       cellDiv.style.backgroundColor = cellToClass();
     }
   });
@@ -58,7 +62,6 @@
   }
 
   function cellToClass() {
-    changeCell(i, j, cell);
     switch (cell) {
       case 0:
         return "white";
@@ -71,6 +74,8 @@
       case 4:
         return "gray";
       case 5:
+        return "black";
+      default:
         return "black";
     }
   }

@@ -2,11 +2,7 @@
   export let board;
 
   import Cell from "./Cell.svelte";
-  $: board;
-
-  function changeCell(i, j, v) {
-    board[i][j] = v;
-  }
+  
 </script>
 
 <style>
@@ -29,7 +25,7 @@
   {#each board as row, i}
     <div class="row">
       {#each board[i] as cell, j}
-        <Cell {cell} {changeCell} {i} {j} />
+        <Cell bind:cell={cell} {i} {j} />
       {/each}
     </div>
   {/each}
