@@ -41,5 +41,6 @@ function DFS_visit(board, startCell, endCell, changeCell, callback) {
 }
 
 export default function DFS(board, startCell, endCell, changeCell, callback) {
+  stop = false;
   DFS_visit(board, startCell, endCell, changeCell, callback);
 }
