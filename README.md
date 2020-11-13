@@ -14,3 +14,5 @@ npm run dev
 ```
 
 ## Algoritm's used:
+
+- DFS
