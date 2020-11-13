@@ -26,12 +26,7 @@
       cellDiv.style.backgroundColor = cellToClass();
     }
 
-    if (cell === 0 || cell === 5 || cell === 2) {
-      cellDiv.style.backgroundColor = cellToClass();
-    }
-
-    if (cell === 5 || cell === 2) {
-      console.log("x");
+    if (cell === 0 || cell === 5 || cell === 2 || cell === 6) {
       cellDiv.style.backgroundColor = cellToClass();
     }
   });
@@ -75,6 +70,8 @@
         return "gray";
       case 5:
         return "black";
+      case 6:
+        return "violet";
       default:
         return "black";
     }

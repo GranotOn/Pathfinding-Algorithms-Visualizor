@@ -7,18 +7,16 @@
   import { mouse, start, end } from "./stores.js";
   import { LIMIT } from "./utils/consts.js";
 
-  let board = [];
+  $: board = new Array(LIMIT).fill(0).map(() => new Array(LIMIT).fill(0));
   var searching = false;
 
   function handleMouse(b) {
     mouse.update((n) => (n = b));
   }
 
-  beforeUpdate(() => {
-    const rows = LIMIT;
-    const columns = LIMIT;
-    board = new Array(rows).fill(0).map(() => new Array(columns).fill(0));
-  });
+  function changeCell(i, j, val) {
+    board[i][j] = val;
+  }
 
   function softClearBoard() {
     board.forEach((b, i) => {
@@ -47,9 +45,7 @@
     softClearBoard(); //Clear board from previous search
     searching = true; // Initialize a flag indicating the search started
 
-    search(board, get(start), get(end), () => {
-      board = board;
-      console.log(board);
+    search(board, get(start), get(end), changeCell, () => {
       searching = false; // Denounce flag at finish
     });// Call generic search on board with $algo
 
@@ -63,6 +59,7 @@
    * 3 = orangy - End point
    * 4 = gray - wall
    * 5 = black - finished traversing
+   * 6 = violet - traversing
    */
 </script>
 
