@@ -1,13 +1,13 @@
-# Search Algorithms
+# Path-finding algorithms
 
 BFS             |  DFS
 :-------------------------:|:-------------------------:
 ![BFS](BFS.gif) |  ![DFS](DFS.gif)
 
 
-*In computer science, a search algorithm is any algorithm which solves the search problem, namely, to retrieve information stored within some data structure, or calculated in the search space of a problem domain, either with discrete or continuous values.*
+*Pathfinding or pathing is the plotting, by a computer application, of the shortest route between two points. It is a more practical variant on solving mazes. This field of research is based heavily on Dijkstra's algorithm for finding the shortest path on a weighted graph.*
 
-- [Search Algorithms](https://en.wikipedia.org/wiki/Search_algorithm)
+- [Path_Finding](https://en.wikipedia.org/wiki/Pathfinding)
 
 
 ## Usage
