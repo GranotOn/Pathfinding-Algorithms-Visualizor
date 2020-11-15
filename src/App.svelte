@@ -6,7 +6,7 @@
   import { search } from "./search.js";
   import { get } from "svelte/store";
   import { mouse, start, end } from "./stores.js";
-  import { LIMIT, MS, DFS_INFO } from "./utils/consts.js";
+  import { LIMIT, MS, DFS_INFO, BFS_INFO } from "./utils/consts.js";
 
   let info, board;
   $: info; // Pop-up
@@ -59,7 +59,7 @@
 
     softClearBoard(); //Clear board from previous search
     searching = true; // Initialize a flag indicating the search started
-    info = DFS_INFO;
+    info = BFS_INFO;
     search(board, get(start), get(end), changeCell, () => {
       searching = false; // Denounce flag at finish
     }); // Call generic search on board with $algo
