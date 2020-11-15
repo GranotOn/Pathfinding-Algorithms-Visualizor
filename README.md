@@ -13,8 +13,8 @@ BFS             |  DFS
 ## Usage
 
 ```
-git clone https://github.com/OwenGranot/Search-Algorithms
-cd Search-Algorithms
+git clone https://github.com/OwenGranot/Pathfinding-Algorithms-Visualizor
+cd Pathfinding-Algorithms-Visualizor
 npm install
 npm run dev
 ```
