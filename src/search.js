@@ -1,4 +1,5 @@
 import Cell from "./Cell.js";
+import BFS from "./Algorithms/BFS.js";
 import DFS from "./Algorithms/DFS.js";
 
 export function search(board, start, end, changeCell, callback) {
@@ -10,7 +11,7 @@ export function search(board, start, end, changeCell, callback) {
   );
   const endCell = new Cell(parseInt(endParams[0]), parseInt(endParams[1]));
 
-  DFS(board, startCell, endCell, changeCell, (Cell) => {
+  BFS(board, startCell, endCell, changeCell, (Cell) => {
     traverse(callback, changeCell, Cell, startCell);
   });
 }

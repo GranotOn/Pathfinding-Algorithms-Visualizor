@@ -1,13 +1,17 @@
 <script>
   import Board from "./Components/Board.svelte";
   import Toolbar from "./Components/Toolbar.svelte";
-  import { beforeUpdate } from "svelte";
+  import Info from "./Components/Info.svelte";
+
   import { search } from "./search.js";
   import { get } from "svelte/store";
   import { mouse, start, end } from "./stores.js";
-  import { LIMIT } from "./utils/consts.js";
+  import { LIMIT, MS, DFS_INFO } from "./utils/consts.js";
 
+  let info, board;
+  $: info; // Pop-up
   $: board = new Array(LIMIT).fill(0).map(() => new Array(LIMIT).fill(0));
+  
   var searching = false;
 
   function handleMouse(b) {
@@ -28,27 +32,13 @@
     });
   }
 
-  function clearBoard() { //Hard clears all cells to 0
+  function clearBoard() {
+    //Hard clears all cells to 0
     board.forEach((b, i) => {
       b.forEach((c, j) => {
-        if (c != 0)
-          board[i][j] = 0;
+        if (c != 0) board[i][j] = 0;
       });
-    })
-  }
-
-  function startSearch() { //Prepare app for search
-    
-    if (!get(start) || !get(end))
-    return; // Check if $start and $end are set
-    
-    softClearBoard(); //Clear board from previous search
-    searching = true; // Initialize a flag indicating the search started
-
-    search(board, get(start), get(end), changeCell, () => {
-      searching = false; // Denounce flag at finish
-    });// Call generic search on board with $algo
-
+    });
   }
 
   /**
@@ -61,6 +51,20 @@
    * 5 = black - finished traversing
    * 6 = violet - traversing
    */
+
+  function startSearch() {
+    //Prepare app for search
+
+    if (!get(start) || !get(end)) return; // Check if $start and $end are set
+
+    softClearBoard(); //Clear board from previous search
+    searching = true; // Initialize a flag indicating the search started
+    info = DFS_INFO;
+    search(board, get(start), get(end), changeCell, () => {
+      searching = false; // Denounce flag at finish
+    }); // Call generic search on board with $algo
+  }
+
 </script>
 
 <style>
@@ -80,8 +84,12 @@
 <main
   on:mousedown={() => handleMouse(true)}
   on:mouseup={() => handleMouse(false)}>
-  <Toolbar {clearBoard} {startSearch} />
+  <Toolbar {clearBoard} {startSearch} {searching} />
   <div>
     <Board {board} />
   </div>
 </main>
+
+{#if info}
+ <Info bind:info={info} {MS} />
+{/if}

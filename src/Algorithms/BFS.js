@@ -1,13 +1,13 @@
 var stop = false;
 
-async function DFS_visit(board, startCell, endCell, changeCell, callback) {
+function BFS_visit(board, startCell, endCell, changeCell, callback) {
   if (stop) return;
 
   const neighbors = startCell.neighbors();
 
   if (!neighbors || neighbors.length === 0) return;
 
-  await neighbors.forEach(async (neighbor) => {
+  neighbors.forEach((neighbor) => {
     const coords = neighbor.coords();
     const i = coords[0];
     const j = coords[1];
@@ -16,7 +16,9 @@ async function DFS_visit(board, startCell, endCell, changeCell, callback) {
 
     if (cell === 0) {
       changeCell(i, j, 2);
-      await DFS_visit(board, neighbor, endCell, changeCell, callback);
+      setTimeout(() => {
+        BFS_visit(board, neighbor, endCell, changeCell, callback);
+      }, 50);
     }
     if (cell === 3) {
       stop = true;
@@ -34,7 +36,7 @@ async function DFS_visit(board, startCell, endCell, changeCell, callback) {
   } // Traversed
 }
 
-export default function DFS(board, startCell, endCell, changeCell, callback) {
+export default function BFS(board, startCell, endCell, changeCell, callback) {
   stop = false;
-  DFS_visit(board, startCell, endCell, changeCell, callback);
+  BFS_visit(board, startCell, endCell, changeCell, callback);
 }
