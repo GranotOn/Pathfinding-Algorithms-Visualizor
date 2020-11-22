@@ -2,7 +2,7 @@ import Cell from "./Cell.js";
 import BFS from "./Algorithms/BFS.js";
 import DFS from "./Algorithms/DFS.js";
 
-export function search(board, start, end, changeCell, callback) {
+export function search(algorithm, board, start, end, changeCell, callback) {
   const startParams = start.id.split(" ");
   const endParams = end.id.split(" ");
   const startCell = new Cell(
@@ -11,9 +11,20 @@ export function search(board, start, end, changeCell, callback) {
   );
   const endCell = new Cell(parseInt(endParams[0]), parseInt(endParams[1]));
 
-  BFS(board, startCell, endCell, changeCell, (Cell) => {
-    traverse(callback, changeCell, Cell, startCell);
-  });
+  switch(algorithm) {
+    case "DFS":
+      DFS(board, startCell, endCell, changeCell, (Cell) => {
+        traverse(callback, changeCell, Cell, startCell);
+      });
+      break;
+    case "BFS":
+      BFS(board, startCell, endCell, changeCell, (Cell) => {
+        traverse(callback, changeCell, Cell, startCell);
+      });
+      break;
+    default:
+      return;
+  }
 }
 
 export function traverse(callback, changeCell, Cell, startCell) {

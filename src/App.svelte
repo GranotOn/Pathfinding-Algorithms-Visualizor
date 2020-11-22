@@ -1,4 +1,5 @@
 <script>
+  import Nav from "./Components/Nav.svelte";
   import Board from "./Components/Board.svelte";
   import Toolbar from "./Components/Toolbar.svelte";
   import Info from "./Components/Info.svelte";
@@ -8,7 +9,7 @@
   import { mouse, start, end } from "./stores.js";
   import { LIMIT, MS, DFS_INFO, BFS_INFO } from "./utils/consts.js";
 
-  let info, board;
+  let info, board, algorithm = "BFS";
   $: info; // Pop-up
   $: board = new Array(LIMIT).fill(0).map(() => new Array(LIMIT).fill(0));
   
@@ -59,8 +60,17 @@
 
     softClearBoard(); //Clear board from previous search
     searching = true; // Initialize a flag indicating the search started
-    info = BFS_INFO;
-    search(board, get(start), get(end), changeCell, () => {
+    
+    switch (algorithm) {
+      case "BFS":
+        info = BFS_INFO;
+        break;
+      case "DFS":
+        info = DFS_INFO;
+        break;
+    }
+
+    search(algorithm, board, get(start), get(end), changeCell, () => {
       searching = false; // Denounce flag at finish
     }); // Call generic search on board with $algo
   }
@@ -81,6 +91,7 @@
   }
 </style>
 
+<Nav bind:algorithm={algorithm}/>
 <main
   on:mousedown={() => handleMouse(true)}
   on:mouseup={() => handleMouse(false)}>
